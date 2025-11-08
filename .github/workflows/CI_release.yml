@@ -13,9 +13,10 @@ stages:
     - task: Npm@1
       inputs:
         command: 'install'
+    - task: Npm@1
+      inputs:
+        command: 'npm run package'
 
-      pwsh: npx @vscode/vsce@latest package -o $(Build.ArtifactStagingDirectory)/extension.vsix
-      displayName: 'Package extension'
 
 
 
