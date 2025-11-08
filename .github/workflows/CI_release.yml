@@ -16,4 +16,5 @@ stages:
     - task: Npm@1
       inputs:
         command: 'custom'
-        customCommand: 'run package'
+
+        customCommand: 'npx @vscode/vsce@latest package -o $(Build.ArtifactStagingDirectory)/extension.vsix'
