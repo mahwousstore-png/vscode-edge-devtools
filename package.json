@@ -663,7 +663,7 @@
         }
     },
     "scripts": {
-        "package": "vsce package --out $(Build.ArtifactStagingDirectory)/vscode-edge-devtools.vsix",
+        "package": "vsce package -o vscode-edge-devtools.vsix",
         "vscode:prepublish": "npm run build && npm run lint",
         "build": "webpack",
         "build-debug": "npm run build -- --mode development --env debug",
@@ -715,4 +715,5 @@
         "webpack-cli": "6.0.1"
     }
 }
+
 
