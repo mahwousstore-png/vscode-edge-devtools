@@ -13,9 +13,9 @@ stages:
     - task: Npm@1
       inputs:
         command: 'install'
-    - task: Npm@1
-      inputs:
-        command: 'custom'
 
-        customCommand: 'vsce package --out $(Build.ArtifactStagingDirectory)/extension.vsix'
+      pwsh: npx @vscode/vsce@latest package -o $(Build.ArtifactStagingDirectory)/extension.vsix
+      displayName: 'Package extension'
+      workingDirectory: samples/extension-signing
+
 
