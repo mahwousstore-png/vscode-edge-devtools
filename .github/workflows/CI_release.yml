@@ -16,6 +16,6 @@ stages:
 
       pwsh: npx @vscode/vsce@latest package -o $(Build.ArtifactStagingDirectory)/extension.vsix
       displayName: 'Package extension'
-      workingDirectory: samples/extension-signing
+
 
 
