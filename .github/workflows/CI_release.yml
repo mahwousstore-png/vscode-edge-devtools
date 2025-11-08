@@ -1,23 +1,28 @@
 pool:
   vmImage: 'ubuntu-latest'
 
+variables:
+  ARTIFACT_DIR: $(Build.ArtifactStagingDirectory)
+
 stages:
 - stage: BuildAndPackage
   jobs: 
   - job: Package
     steps:
+    - script: echo "Artifact dir is $ARTIFACT_DIR"
+      env:
+        ARTIFACT_DIR: $(ARTIFACT_DIR)
+
     - task: NodeTool@0
       inputs:
         versionSource: 'spec'
         versionSpec: '22.x'
+
     - task: Npm@1
       inputs:
         command: 'install'
+
     - task: Npm@1
       inputs:
-        command: 'run package'
-
-
-
-
-
+        command: 'custom'
+        customCommand: 'run package'
