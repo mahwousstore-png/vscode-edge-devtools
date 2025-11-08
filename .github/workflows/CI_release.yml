@@ -17,4 +17,5 @@ stages:
       inputs:
         command: 'custom'
 
-        customCommand: 'npx @vscode/vsce@latest package -o $(Build.ArtifactStagingDirectory)/extension.vsix'
+        customCommand: 'vsce package --out $(Build.ArtifactStagingDirectory)/extension.vsix'
+
