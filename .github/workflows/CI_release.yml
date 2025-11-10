@@ -23,10 +23,20 @@ stages:
       inputs:
         command: 'custom'
         customCommand: 'run package'
+
     - script: |
         echo "Artifact dir is $ARTIFACT_DIR"
         cp vscode-edge-devtools.vsix $(ARTIFACT_DIR)
       displayName: 'Copy VSIX to Artifact Staging Directory'
       env:
         ARTIFACT_DIR: $(ARTIFACT_DIR)
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: '$(ARTIFACT_DIR)'
+        artifactName: 'vsix-artifact'
+        publishLocation: 'Container'
+      displayName: 'Publish VSIX Artifact'
+
+
 
