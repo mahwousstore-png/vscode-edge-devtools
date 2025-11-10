@@ -9,9 +9,6 @@ stages:
   jobs: 
   - job: Package
     steps:
-    - script: echo "Artifact dir is $ARTIFACT_DIR"
-      env:
-        ARTIFACT_DIR: $(ARTIFACT_DIR)
 
     - task: NodeTool@0
       inputs:
@@ -26,3 +23,10 @@ stages:
       inputs:
         command: 'custom'
         customCommand: 'run package'
+    - script: |
+        echo "Artifact dir is $ARTIFACT_DIR"
+        cp vscode-edge-devtools.vsix $(ARTIFACT_DIR)
+      displayName: 'Copy VSIX to Artifact Staging Directory'
+      env:
+        ARTIFACT_DIR: $(ARTIFACT_DIR)
+
