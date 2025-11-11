@@ -3,7 +3,7 @@ pool:
 
 variables:
   ARTIFACT_DIR: $(Build.ArtifactStagingDirectory)
-  ESRP_CONNECTION_NAME: ${esrpConnectionName}
+  ESRP_CONNECTION_NAME: $(esrpConnectionName)
 
 stages:
 - stage: BuildAndPackage
@@ -59,3 +59,4 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
