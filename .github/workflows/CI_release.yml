@@ -3,7 +3,7 @@ pool:
 
 variables:
   ARTIFACT_DIR: $(Build.ArtifactStagingDirectory)
-  esrpConnectionName: 'test'
+  ESRP_CONNECTION_NAME: ${esrpConnectionName}
 
 stages:
 - stage: BuildAndPackage
@@ -38,9 +38,8 @@ stages:
         esrpConnectionName: $(esrpConnectionName)
 
     - task: EsrpCodeSigning@6
-      condition: false
       inputs:
-        ConnectedServiceName: $(esrpConnectionName)
+        ConnectedServiceName: $(ESRP_CONNECTION_NAME)
         AppRegistrationClientId: $(appRegistrationClientId)
         AppRegistrationTenantId: $(esrpTenantId)
         EsrpClientId: $(esrpClientId)
@@ -54,36 +53,9 @@ stages:
         MaxRetryAttempts: '5'
         PendingAnalysisWaitTimeoutMinutes: '5'
 
-    - task: EsrpCodeSigning@5
-      inputs:
-        connectedServiceName: '$(esrpConnectionName)'
-        useMSIAuthentication: true
-        appRegistrationClientId: '$(appRegistrationClientId)'
-        appRegistrationTenantId: '$(esrpTenantId)'
-        authAkvName: '$(esrpAuthAkvName)'
-        authSignCertName: '$(esrpAuthCertName)'
-        folderPath: '$(ARTIFACT_DIR)'
-        pattern: '*.vsix'
-        useMinimatch: true
-
     - task: PublishBuildArtifacts@1
       inputs:
         pathToPublish: '$(ARTIFACT_DIR)'
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
