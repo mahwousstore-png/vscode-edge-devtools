@@ -38,5 +38,22 @@ stages:
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
 
+    - task: EsrpCodeSigning@6
+      inputs:
+        ConnectedServiceName: '$(esrpConnectionName)'
+        AppRegistrationClientId: '$(esrpClientId)'
+        AppRegistrationTenantId: '$(esrpTenantId)'
+        EsrpClientId: '$(esrpClientId)'
+        UseMSIAuthentication: true
+        AuthAKVName: '$(esrpAuthAkvName)'
+        AuthSignCertName: '$(esrpAuthCertName)'
+        FolderPath: '$(Build.ArtifactStagingDirectory)'
+        Pattern: '*.vsix'
+        SessionTimeout: '60'
+        MaxConcurrency: '50'
+        MaxRetryAttempts: '5'
+        PendingAnalysisWaitTimeoutMinutes: '5'
+
+
 
 
