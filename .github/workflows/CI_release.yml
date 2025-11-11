@@ -3,12 +3,6 @@ pool:
 
 variables:
   ARTIFACT_DIR: $(Build.ArtifactStagingDirectory)
-  esrpConnectionName: $(esrpConnectionName)
-  appRegistrationClientId: $(appRegistrationClientId)
-  esrpClientId: $(esrpClientId)
-  esrpTenantId: $(esrpTenantId)
-  esrpAuthAkvName: $(esrpAuthAkvName)
-  esrpAuthCertName: $(esrpAuthCertName)
 
 stages:
 - stage: BuildAndPackage
@@ -37,13 +31,6 @@ stages:
       env:
         ARTIFACT_DIR: $(ARTIFACT_DIR)
 
-    - task: PublishBuildArtifacts@1
-      inputs:
-        pathToPublish: '$(ARTIFACT_DIR)'
-        artifactName: 'vsix-artifact'
-        publishLocation: 'Container'
-      displayName: 'Publish VSIX Artifact'
-
     - task: EsrpCodeSigning@6
       inputs:
         ConnectedServiceName: '$(esrpConnectionName)'
@@ -59,6 +46,16 @@ stages:
         MaxConcurrency: '50'
         MaxRetryAttempts: '5'
         PendingAnalysisWaitTimeoutMinutes: '5'
+
+    - task: PublishBuildArtifacts@1
+      inputs:
+        pathToPublish: '$(ARTIFACT_DIR)'
+        artifactName: 'vsix-artifact'
+        publishLocation: 'Container'
+      displayName: 'Publish VSIX Artifact'
+
+
+
 
 
 
