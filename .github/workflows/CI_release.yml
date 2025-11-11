@@ -3,6 +3,12 @@ pool:
 
 variables:
   ARTIFACT_DIR: $(Build.ArtifactStagingDirectory)
+  esrpConnectionName: $(esrpConnectionName)
+  appRegistrationClientId: $(appRegistrationClientId)
+  esrpClientId: $(esrpClientId)
+  esrpTenantId: $(esrpTenantId)
+  esrpAuthAkvName: $(esrpAuthAkvName)
+  esrpAuthCertName: $(esrpAuthCertName)
 
 stages:
 - stage: BuildAndPackage
@@ -41,18 +47,19 @@ stages:
     - task: EsrpCodeSigning@6
       inputs:
         ConnectedServiceName: '$(esrpConnectionName)'
-        AppRegistrationClientId: '$(esrpClientId)'
+        AppRegistrationClientId: '$(appRegistrationClientId)'
         AppRegistrationTenantId: '$(esrpTenantId)'
         EsrpClientId: '$(esrpClientId)'
         UseMSIAuthentication: true
         AuthAKVName: '$(esrpAuthAkvName)'
         AuthSignCertName: '$(esrpAuthCertName)'
-        FolderPath: '$(Build.ArtifactStagingDirectory)'
+        FolderPath: '$(ARTIFACT_DIR)'
         Pattern: '*.vsix'
         SessionTimeout: '60'
         MaxConcurrency: '50'
         MaxRetryAttempts: '5'
         PendingAnalysisWaitTimeoutMinutes: '5'
+
 
 
 
