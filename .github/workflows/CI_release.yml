@@ -38,14 +38,14 @@ stages:
 
     - task: EsrpCodeSigning@6
       inputs:
-        ConnectedServiceName: '$(esrpConnectionName)'
-        AppRegistrationClientId: '$(appRegistrationClientId)'
-        AppRegistrationTenantId: '$(esrpTenantId)'
-        EsrpClientId: '$(esrpClientId)'
+        ConnectedServiceName: $(esrpConnectionName)
+        AppRegistrationClientId: $(appRegistrationClientId)
+        AppRegistrationTenantId: $(esrpTenantId)
+        EsrpClientId: $(esrpClientId)
         UseMSIAuthentication: true
-        AuthAKVName: '$(esrpAuthAkvName)'
-        AuthSignCertName: '$(esrpAuthCertName)'
-        FolderPath: '$(ARTIFACT_DIR)'
+        AuthAKVName: $(esrpAuthAkvName)
+        AuthSignCertName: $(esrpAuthCertName)
+        FolderPath: $(ARTIFACT_DIR)
         Pattern: '*.vsix'
         SessionTimeout: '60'
         MaxConcurrency: '50'
@@ -58,6 +58,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
