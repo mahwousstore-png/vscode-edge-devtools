@@ -3,6 +3,7 @@ pool:
 
 variables:
   ARTIFACT_DIR: $(Build.ArtifactStagingDirectory)
+  esrpConnectionName: 'test'
 
 stages:
 - stage: BuildAndPackage
@@ -11,22 +12,26 @@ stages:
     steps:
 
     - task: NodeTool@0
+      condition: false
       inputs:
         versionSource: 'spec'
         versionSpec: '22.x'
 
     - task: Npm@1
+      condition: false
       inputs:
         command: 'install'
 
     - task: Npm@1
+      condition: false
       inputs:
         command: 'custom'
         customCommand: 'run package'
 
     - script: |
         echo "Artifact dir is $ARTIFACT_DIR"
-        cp vscode-edge-devtools.vsix $(ARTIFACT_DIR)
+        echo "Artifact dir is $ARTIFACT_DIR"
+        # cp vscode-edge-devtools.vsix $(ARTIFACT_DIR)
       displayName: 'Copy VSIX to Artifact Staging Directory'
       env:
         ARTIFACT_DIR: $(ARTIFACT_DIR)
@@ -53,6 +58,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
