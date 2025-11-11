@@ -53,12 +53,25 @@ stages:
         MaxRetryAttempts: '5'
         PendingAnalysisWaitTimeoutMinutes: '5'
 
+    - task: EsrpCodeSigning@5
+      inputs:
+        connectedServiceName: '$(esrpConnectionName)'
+        useMSIAuthentication: true
+        appRegistrationClientId: '$(appRegistrationClientId)'
+        appRegistrationTenantId: '$(esrpTenantId)'
+        authAkvName: '$(esrpAuthAkvName)'
+        authSignCertName: '$(esrpAuthCertName)'
+        folderPath: '$(ARTIFACT_DIR)'
+        pattern: '*.vsix'
+        useMinimatch: true
+
     - task: PublishBuildArtifacts@1
       inputs:
         pathToPublish: '$(ARTIFACT_DIR)'
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
