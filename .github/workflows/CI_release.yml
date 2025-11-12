@@ -2,7 +2,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-  ARTIFACT_DIR: $(Build.ArtifactStagingDirectory)
+  STAGING_DIR: $(Build.ArtifactStagingDirectory)
+  ARTIFACT_DIR: '$(STAGING_DIR)/vsix'
+  
 
 stages:
 - stage: BuildAndPackage
@@ -26,6 +28,14 @@ stages:
       inputs:
         command: 'custom'
         customCommand: 'run package'
+
+    - script: |
+        mkdir -p "$ARTIFACT_DIR"
+        echo "Created folder: $ARTIFACT_DIR"
+      displayName: 'Create directory on Linux'
+      env:
+        ARTIFACT_DIR: $(ARTIFACT_DIR)
+
 
     - script: |
         echo "Artifact dir is $ARTIFACT_DIR"
@@ -58,6 +68,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
