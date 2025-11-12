@@ -4,6 +4,7 @@ pool:
 variables:
   STAGING_DIR: $(Build.ArtifactStagingDirectory)
   ARTIFACT_DIR: '$(STAGING_DIR)/vsix'
+  system.debug: 'true'
   
 
 stages:
@@ -59,7 +60,7 @@ stages:
         AppRegistrationClientId: $(appRegistrationClientId)
         AppRegistrationTenantId: $(esrpTenantId)
         EsrpClientId: $(esrpClientId)
-        ProvisionStorage: false
+        ProvisionStorage: 'false'
         UseMSIAuthentication: true
         AuthAKVName: $(esrpAuthAkvName)
         AuthSignCertName: $(esrpAuthCertName)
@@ -87,6 +88,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
