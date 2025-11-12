@@ -46,7 +46,14 @@ stages:
         ARTIFACT_DIR: $(ARTIFACT_DIR)
         ESRP_CONNECTION_NAME: $(ESRP_CONNECTION_NAME)
 
+    - pwsh: npx @vscode/vsce@latest generate-manifest -i $(ARTIFACT_DIR)/vscode-edge-devtools.vsix -o $(ARTIFACT_DIR)/vscode-edge-devtools.manifest
+      displayName: 'Generate extension manifest'
+
+    - pwsh: cp $(ARTIFACT_DIR)/vscode-edge-devtools.manifest $(ARTIFACT_DIR)/vscode-edge-devtools.signature.p7s
+      displayName: 'Prepare manifest for signing'
+
     - task: EsrpCodeSigning@6
+      conditional: false
       inputs:
         ConnectedServiceName: $(ESRP_CONNECTION_NAME)
         AppRegistrationClientId: $(appRegistrationClientId)
@@ -56,7 +63,18 @@ stages:
         AuthAKVName: $(esrpAuthAkvName)
         AuthSignCertName: $(esrpAuthCertName)
         FolderPath: $(ARTIFACT_DIR)
-        Pattern: '*.vsix'
+        Pattern: 'extension.signature.p7'
+        signConfigType: 'inlineSignParams'
+        inlineOperation: |
+          [
+            {
+              "keyCode": "$(KEY_CODE)",
+              "operationSetCode": "$(OPERATION_SET_CODE)",
+              "parameters" : [],
+              "toolName": "sign",
+              "toolVersion": "1.0"
+            }
+          ]
         SessionTimeout: '60'
         MaxConcurrency: '50'
         MaxRetryAttempts: '5'
@@ -68,6 +86,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
