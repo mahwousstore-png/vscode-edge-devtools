@@ -53,7 +53,7 @@ stages:
       displayName: 'Prepare manifest for signing'
 
     - task: EsrpCodeSigning@6
-      condition: false
+      condition: true
       inputs:
         ConnectedServiceName: $(ESRP_CONNECTION_NAME)
         AppRegistrationClientId: $(appRegistrationClientId)
@@ -63,7 +63,7 @@ stages:
         AuthAKVName: $(esrpAuthAkvName)
         AuthSignCertName: $(esrpAuthCertName)
         FolderPath: $(ARTIFACT_DIR)
-        Pattern: 'extension.signature.p7'
+        Pattern: 'vscode-edge-devtools.signature.p7s'
         signConfigType: 'inlineSignParams'
         inlineOperation: |
           [
@@ -86,6 +86,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
