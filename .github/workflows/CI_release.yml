@@ -30,12 +30,12 @@ stages:
 
     - script: |
         echo "Artifact dir is $ARTIFACT_DIR"
-        echo "esrpConnectionName dir is $esrpConnectionName"
+        echo "esrpConnectionName dir is $ESRP_CONNECTION_NAME"
         # cp vscode-edge-devtools.vsix $(ARTIFACT_DIR)
       displayName: 'Copy VSIX to Artifact Staging Directory'
       env:
         ARTIFACT_DIR: $(ARTIFACT_DIR)
-        esrpConnectionName: $(esrpConnectionName)
+        ESRP_CONNECTION_NAME: $(ESRP_CONNECTION_NAME)
 
     - task: EsrpCodeSigning@6
       inputs:
@@ -59,4 +59,5 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
