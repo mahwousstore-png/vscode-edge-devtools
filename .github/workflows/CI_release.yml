@@ -39,7 +39,7 @@ stages:
 
     - task: EsrpCodeSigning@6
       inputs:
-        ConnectedServiceName: $(esrpConnectionName)
+        ConnectedServiceName: $(ESRP_CONNECTION_NAME)
         AppRegistrationClientId: $(appRegistrationClientId)
         AppRegistrationTenantId: $(esrpTenantId)
         EsrpClientId: $(esrpClientId)
@@ -59,6 +59,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
