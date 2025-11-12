@@ -59,6 +59,7 @@ stages:
         AppRegistrationClientId: $(appRegistrationClientId)
         AppRegistrationTenantId: $(esrpTenantId)
         EsrpClientId: $(esrpClientId)
+        ProvisionStorage: false
         UseMSIAuthentication: true
         AuthAKVName: $(esrpAuthAkvName)
         AuthSignCertName: $(esrpAuthCertName)
@@ -86,6 +87,7 @@ stages:
         artifactName: 'vsix-artifact'
         publishLocation: 'Container'
       displayName: 'Publish VSIX Artifact'
+
 
 
 
