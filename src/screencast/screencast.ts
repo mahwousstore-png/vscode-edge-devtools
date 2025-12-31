@@ -58,7 +58,7 @@ export class Screencast {
         this.reloadButton.addEventListener('click', () => this.onReloadClick());
         this.urlInput.addEventListener('keydown', event => this.onUrlKeyDown(event));
 
-        this.reloadButton.setAttribute('role', "button");
+        this.reloadButton.setAttribute('role', 'button');
 
         const emulatedDevices = groupEmulatedDevicesByType();
         InfobarComponent.render({message:  "This is a simulated preview with limited functionality. Deactivate 'Headless mode' in extension settings for a full experience."}, 'infobar');
@@ -102,7 +102,7 @@ export class Screencast {
                 offsetDirection: OffsetDirection.Right,
                 menuItemSections: [
                     {
-                        onItemSelected: this.onEmulatedMediaSelected, 
+                        onItemSelected: this.onEmulatedMediaSelected,
                         menuItems: [
                             {name: 'No media type emulation', value: ''},
                             {name: 'screen', value: 'screen'},
@@ -110,7 +110,7 @@ export class Screencast {
                         ],
                     },
                     {
-                        onItemSelected: this.onPrefersColorSchemeSelected, 
+                        onItemSelected: this.onPrefersColorSchemeSelected,
                         menuItems: [
                             {name: 'No prefers-color-scheme emulation', value: ''},
                             {name: 'prefers-color-scheme: light', value: 'light'},
@@ -118,7 +118,7 @@ export class Screencast {
                         ]
                     },
                     {
-                        onItemSelected: this.onForcedColorsSelected, 
+                        onItemSelected: this.onForcedColorsSelected,
                         menuItems: [
                             {name: 'No forced-colors emulation', value: ''},
                             {name: 'forced-colors: none', value: 'none'},
@@ -243,8 +243,8 @@ export class Screencast {
                 return;
             }
             if (device.modes) {
-                const defaultDeviceMode = device.modes.find((mode) => mode.title === 'default');
-                
+                const defaultDeviceMode = device.modes.find(mode => mode.title === 'default');
+
                 if (!defaultDeviceMode) {
                     throw new Error(`No default device mode in \`modes\` property for ${device.title}`);
                 }
@@ -294,17 +294,17 @@ export class Screencast {
         this.emulatedWidth = width;
         this.emulatedHeight = height;
         this.updateEmulation();
-    }
+    };
 
     private updateMediaFeatures = () => {
-        let features = [] as {name: string, value: string}[];
+        const features = [] as {name: string, value: string}[];
         this.mediaFeatureConfig.forEach((value, name) => {
             features.push({name, value});
-        }); 
+        });
         const payload = {
             features,
             media: this.emulatedMedia
-            
+
         };
         this.cdpConnection.sendMessageToBackend('Emulation.setEmulatedMedia', payload);
     };
@@ -322,14 +322,14 @@ export class Screencast {
     private onBackClick(): void {
         if (this.historyIndex > 0) {
             const entryId = this.history[this.historyIndex - 1].id;
-            this.cdpConnection.sendMessageToBackend('Page.navigateToHistoryEntry', {entryId})
+            this.cdpConnection.sendMessageToBackend('Page.navigateToHistoryEntry', {entryId});
         }
     }
 
     private onForwardClick(): void {
         if (this.historyIndex < this.history.length - 1) {
             const entryId = this.history[this.historyIndex + 1].id;
-            this.cdpConnection.sendMessageToBackend('Page.navigateToHistoryEntry', {entryId})
+            this.cdpConnection.sendMessageToBackend('Page.navigateToHistoryEntry', {entryId});
         }
     }
 
@@ -353,7 +353,7 @@ export class Screencast {
             if (url.startsWith('/') || url[1] === ':') {
                 try {
                     url = new URL(`file://${url}`).href;
-                } catch (e) {
+                } catch {
                     // Try the original URL if it can't be converted to a file URL.
                 }
             }
@@ -380,7 +380,7 @@ export class Screencast {
     }
 
     private onToggleInspect({ enabled }: any): void {
-        this.setTouchMode(!enabled as boolean);
+        this.setTouchMode(!enabled);
     }
 
     private onSaveToClipboard(message: string): void {

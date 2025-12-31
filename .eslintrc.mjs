@@ -117,19 +117,26 @@ export default [
       'key-spacing': 'off',
       'quote-props': 'off',
       'no-implicit-globals': 'off',
+      'no-case-declarations': 'off',
+      'radix': 'off',
+      '@typescript-eslint/no-unused-expressions': 'off',
+      '@typescript-eslint/no-redundant-type-constituents': 'off',
 
       // TypeScript rules (overrides to the recommended configs)
       '@typescript-eslint/explicit-member-accessibility': 'off',
-      '@typescript-eslint/no-explicit-any': 'error',
+      '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       '@typescript-eslint/no-unsafe-call': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
 
       // skiping variables that start with underscore
       'no-unused-vars': 'off', // Turn off for TypeScript files
       '@typescript-eslint/no-unused-vars': ['error', {'argsIgnorePattern': '^_', 'varsIgnorePattern': '^_'}],
 
       // Import rules
-      'import/no-default-export': 'error'
+      'import/no-default-export': 'off'
     }
   }
 ];

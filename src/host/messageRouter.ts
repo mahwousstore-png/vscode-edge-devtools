@@ -12,7 +12,7 @@ import {
     WebviewEvent,
 } from '../common/webviewEvents';
 
-declare const acquireVsCodeApi: () => {postMessage(message: unknown, args?: any|undefined): void};
+declare const acquireVsCodeApi: () => {postMessage(message: unknown, args?: any): void};
 const vscode = acquireVsCodeApi();
 
 /**
@@ -67,7 +67,7 @@ export class MessageRouter {
     }
 
     onMessageFromFrame(e: FrameToolsEvent, args: any[]): boolean {
-        switch(e) {
+        switch (e) {
             case 'openInEditor':
                 const [url, line, column, ignoreTabChanges] = args;
                 this.openInEditor(url, line, column, ignoreTabChanges);

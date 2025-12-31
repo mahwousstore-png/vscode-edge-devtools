@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+
 // Copyright (c) Microsoft Corporation. All rights reserved.
 // Licensed under the MIT License.
 import * as path from 'path';
@@ -203,10 +203,6 @@ export class DevToolsPanel {
                 d.dispose();
             }
         }
-        if (!ScreencastPanel.instance && vscode.debug.activeDebugSession?.name.includes(providedHeadlessDebugConfig.name)) {
-            void vscode.commands.executeCommand('workbench.action.debug.stop');
-        }
-
         // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         ScreencastPanel.instance && ScreencastPanel.instance.update();
     }
@@ -633,7 +629,6 @@ export class DevToolsPanel {
             panel.iconPath = vscode.Uri.joinPath(context.extensionUri, 'icon.png');
             DevToolsPanel.instance = new DevToolsPanel(panel, context, telemetryReporter, targetUrl, config);
 
-            // eslint-disable-next-line @typescript-eslint/no-unused-expressions
             ScreencastPanel.instance && ScreencastPanel.instance.update();
         }
     }

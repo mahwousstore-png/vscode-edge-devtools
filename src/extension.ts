@@ -361,8 +361,8 @@ async function startWebhint(context: vscode.ExtensionContext): Promise<void> {
                         }
                         case 'vscode-webhint/ignore-browsers-project': {
                             if (args.length > 1) {
-                                // eslint-disable-next-line @typescript-eslint/no-explicit-any
-                                const browserList = args[2]['browsers'] as any[]; // eslint-disable-line @typescript-eslint/no-unsafe-member-access
+
+                                const browserList = args[2]['browsers'] as any[];
                                 telemetryReporter.sendTelemetryEvent('user/webhint/quickfix/ignore-browsers', { hint: hintName, value: browserList.join(',') });
                             }
                             break;
