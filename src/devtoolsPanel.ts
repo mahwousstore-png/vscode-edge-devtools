@@ -37,7 +37,6 @@ import {
 import { ErrorReporter } from './errorReporter';
 import { ErrorCodes } from './common/errorCodes';
 import { ScreencastPanel } from './screencastPanel';
-import { providedHeadlessDebugConfig } from './launchConfigManager';
 
 export class DevToolsPanel {
     private readonly config: IRuntimeConfig;
@@ -203,7 +202,6 @@ export class DevToolsPanel {
                 d.dispose();
             }
         }
-        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         ScreencastPanel.instance && ScreencastPanel.instance.update();
     }
 
